@@ -1,0 +1,16 @@
+{
+  "name": "xcsm-wechat",
+  "version": "1.0.0",
+  "description": "xcsm wechat",
+  "author": "xxx",
+  "homepage": "https://github.com/TodayKang/xcsm-wechat#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TodayKang/xcsm-wechat.git"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "@vant/weapp": "^1.0.7",
+    "moment": "^2.24.0"
+  }
+}

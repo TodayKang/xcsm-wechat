@@ -1,0 +1,101 @@
+/* pages/order-detail/index.wxss */
+@import "/template/template-abnor/template-abnor.wxss";
+@import "/template/template-list-item/template-list-item.wxss";
+
+.order-status {
+  width: 100%;
+  height: 160rpx;
+  line-height: 160rpx;
+  padding-left: 60rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(#e72828c7, #ff0036);
+}
+
+.order-box {
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+}
+
+.order-box .box-title {
+  width: 100%;
+  padding: 6rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.order-box .box-content {
+  width: 100%;
+}
+
+.order-box .address, .order-box .delivery {
+  display: flex;
+}
+
+.address .icon, .delivery .icon {
+  width: 15%;
+  color: #ff8c00;
+}
+
+.address .detail, .delivery .detail {
+  width: 85%;
+}
+
+.address .address-detail {
+  width: 100%;
+}
+
+.address .address-detail .name {
+  padding-right: 10rpx;
+  font-weight: bold;
+}
+
+.order-box .box {
+  width: 100%;
+  padding: 1rpx 0;
+  display: flex;
+  font-size: 28rpx;
+}
+
+.order-box .box .title {
+  width: 32%;
+  padding: 0 0 0 4rpx;
+}
+
+.order-box .box .value {
+  width: 60%;
+  text-align: left;
+}
+
+.price .title {
+  width: 30% !important;
+}
+
+.price .value {
+  width: 65% !important;
+  text-align: right !important;
+}
+
+.order .title {
+  width: 18% !important;
+}
+
+.order{
+  margin-bottom: 120rpx;
+}
+
+.operation {
+  width: 100%;
+  padding: 20rpx 0;
+  display: block;
+  text-align: right !important;
+}
+
+.operation text {
+  margin-right: 20rpx;
+  border: 2rpx solid #999;
+  border-radius: 6rpx;
+  padding: 4rpx 8rpx;
+}

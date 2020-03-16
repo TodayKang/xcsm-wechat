@@ -1,0 +1,18 @@
+<!--pages/search/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
+
+<van-sticky>
+    <van-search focus value="{{ data.keyWord }}" placeholder="请输入搜索关键词" bind:change="searchChange" />
+</van-sticky>
+
+<block wx:if="{{ loadReady }}">
+
+    <block wx:if="{{ itemList == null || itemList.length == 0 }}">
+        <template is="SEARCH" />
+    </block>
+    <block wx:else>
+        <template is="product-list" data="{{ itemList: itemList, allClick: true }}" />
+    </block>
+
+</block>

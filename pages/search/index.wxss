@@ -1,0 +1,3 @@
+/* pages/search/index.wxss */
+@import "/template/template-abnor/template-abnor.wxss";
+@import "/template/template-list-item/template-list-item.wxss";

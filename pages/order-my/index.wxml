@@ -1,0 +1,83 @@
+<!--pages/my-order/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml"/>
+<import src="/template/template-list-item/template-list-item.wxml"/>
+
+<van-sticky>
+    <van-search focus value="{{  }}" placeholder="请输入搜索关键词" bind:change="searchChange"/>
+
+    <van-tabs animated swipeable active="{{ activeTab }}" bind:change="tabOnChange">
+        <block wx:for="{{ statusList }}" wx:key="key">
+            <van-tab info="" name="{{ item.statusEn }}" title="{{ item.statusZh }}"/>
+        </block>
+    </van-tabs>
+</van-sticky>
+
+<block wx:if="{{ loadReady }}">
+
+    <block wx:if="{{ itemList == null || itemList.length < 1 }}">
+        <template is="ORDER"/>
+    </block>
+    <block wx:else>
+
+        <scroll-view class="scroll-order-list" scroll-y="true" bindscrolltolower="bindscrolltolower">
+            <block wx:for="{{ itemList }}" wx:key="key">
+                <block wx:if="{{ item==null || item.statusEn=='hasDelete' || item.statusEn=='hasDiscard' }}"></block>
+                <block wx:else>
+                    <view class="global-bg-text order-content">
+                        <view class="summary" data-item="{{ item }}" bindtap="showHideOrderProduct">
+                            <view class="global-center date">
+                                <block wx:if="{{ item.dateStr != null }}">{{ item.dateStr }}</block>
+                            </view>
+                            <view class="global-center order-id">订单号:{{ item.orderId }}</view>
+                            <view class="global-center status">{{ item.statusText }}</view>
+                            <view class="global-center icon">
+                                <block wx:if="{{ item.showProductList_ }}">
+                                    <van-icon name="arrow-up" size="22px"/>
+                                </block>
+                                <block wx:else>
+                                    <van-icon name="arrow-down" size="22px"/>
+                                </block>
+                            </view>
+                        </view>
+
+                        <block wx:if="{{ item.showProductList_ != null && item.showProductList_ }}">
+                            <view class="item-detail" data-item="{{ item }}" bindtap="toOrderDetail">
+                                <template is="order-product-list" data="{{ productList: item.productList }}"/>
+                            </view>
+                        </block>
+
+                        <view class="price">
+                            <text class="global-center quantity">共{{ item.quantity }}件 合计:</text>
+                            <text class="global-center price-sell">￥{{ item.pay }}</text>
+                            <text class="global-center price-market">{{ item.total }}</text>
+                        </view>
+
+                        <view class="operation">
+                            <block wx:if="{{ item.statusEn == 'waitPay' }}">
+                                <text class="cancel" data-action="cancel" data-item="{{ item }}" bindtap="orderActionClick">取消订单</text>
+                                <text class="pay" data-action="pay" data-item="{{ item }}" bindtap="orderActionClick">立即付款</text>
+                            </block>
+                            <block wx:if="{{ item.statusEn == 'hasClosed' || item.statusEn == 'hasComplete' || item.statusEn == 'waitRate' }}">
+                                <text class="delete" data-action="delete" data-item="{{ item }}" bindtap="orderActionClick">删除订单</text>
+                            </block>
+                            <block wx:if="{{ item.statusEn == 'waitSend' || item.statusEn == 'waitConfirm' || item.statusEn == 'waitRate' }}">
+                                <text class="refund" data-action="refund" data-item="{{ item }}" bindtap="orderActionClick">申请退款</text>
+                            </block>
+                            <block wx:if="{{ item.statusEn == 'waitRefund' }}">
+                                <text class="pay" data-action="refund" data-item="{{ item }}">待退款</text>
+                            </block>
+                            <block wx:if="{{ item.statusEn != 'waitPay' }}">
+                                <text class="buy" data-action="buy" data-item="{{ item }}" bindtap="orderActionClick">再次购买</text>
+                            </block>
+                            <block wx:if="{{ item.statusEn == 'waitRate' }}">
+                                <text class="rate" data-action="rate" data-item="{{ item }}" bindtap="orderActionClick">评价</text>
+                            </block>
+                        </view>
+                    </view>
+                </block>
+            </block>
+        </scroll-view>
+
+    </block>
+
+</block>

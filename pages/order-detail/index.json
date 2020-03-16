@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "van-sticky": "/miniprogram_npm/@vant/weapp/sticky/index",
+    "van-tab": "/miniprogram_npm/@vant/weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index",
+    "van-tag": "/miniprogram_npm/@vant/weapp/tag/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index"
+  }
+}

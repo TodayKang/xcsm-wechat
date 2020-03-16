@@ -1,0 +1,37 @@
+### JetBrains template
+.idea/
+cmake-build-*/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse template
+.settings/
+.classpath
+.project
+
+### STS (Spring Tool Suite)
+.apt_generated
+.factorypath
+.recommenders/
+.settings
+.springBeans
+.sts4-cache
+
+### Git template
+.git/
+
+### SVN template
+.svn/
+
+### macOS template
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Node template
+dist/
+node_modules/
+miniprogram_npm/
+package-lock.json

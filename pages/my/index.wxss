@@ -1,0 +1,96 @@
+/* pages/my/index.wxss */
+
+.general {
+    width: 100%;
+    height: 200rpx;
+    color: #fff;
+    background-color: #ff0036;
+    display: flex;
+}
+
+.general .icon {
+    width: 30%;
+    align-items: center;
+}
+
+.general .name {
+    width: 55%;
+}
+
+.general .message {
+    width: 15%;
+    padding-top: 30rpx;
+    font-size: 22rpx;
+    text-align: center;
+}
+
+.general .avatar-wx {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 50%;
+    display: block;
+    overflow: hidden;
+}
+
+.general button{
+    
+}
+
+.tools1 {
+    width: 100%;
+    color: #ff6034;
+    flex-direction: row;
+}
+
+.tools1 .tool {
+    width: 25%;
+    padding: 30rpx 0 20rpx 0;
+    text-align: center;
+    font-size: 24rpx;
+}
+
+.order {
+    margin: 20rpx;
+    border-radius: 20rpx;
+}
+
+.order .all, .order .tools {
+    width: 100%;
+    display: flex;
+}
+
+.order .all {
+    border-bottom: 2rpx solid #f4f4f4;
+    padding: 20rpx 0;
+    flex-direction: row;
+    font-size: 26rpx;
+    font-weight: bold;
+}
+
+.order .all .text {
+    width: 40%;
+    padding-left: 20rpx;
+}
+
+.order .all .see {
+    width: 60%;
+    padding-right: 20rpx;
+    text-align: right;
+}
+
+.order .tools {
+    width: 100%;
+    color: #ff6034;
+    flex-direction: row;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+.order .tools .tool {
+    width: 20%;
+    padding: 20rpx 0 10rpx 0;
+}
+
+.order .tools .title {
+    color: #666;
+}

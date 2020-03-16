@@ -1,0 +1,171 @@
+<!-- 产品列表 template, 名称:product-list, 样式:scroll-product -->
+<template name="product-list">
+    <scroll-view class="template-scroll scroll-product" scroll-y="true">
+        <block wx:for="{{ itemList }}" wx:key="key">
+            <view class="global-bg-text box_" data-item="{{ item }}" bindtap="{{ (allClick == true)? 'toDetailPage' : '' }}">
+                <!-- 图片列 -->
+                <view class="global-center icon_" data-item="{{ item }}" bindtap="{{ (iconClick == true )? 'toDetailPage' : '' }}">
+                    <image lazy-load="true" mode="aspectFill" src="{{ item.productIcon }}"/>
+                </view>
+
+                <!-- 内容列 -->
+                <view class="content_">
+                    <!-- 名称 -->
+                    <view class="line2 name_" data-item="{{ item }}" bindtap="{{ (nameClick == true)? 'toDetailPage': '' }}">{{ item.productName }}</view>
+
+                    <!-- 标签 -->
+                    <view class="line1 tag_">
+                        <block wx:for="{{ item.tags }}" wx:key="keyTag" wx:for-item="tag">
+                            <van-tag plain round color="#f42">{{ tag }}</van-tag>
+                        </block>
+                    </view>
+
+                    <!-- 起价 市场价 -->
+                    <view class="price_">
+                        <text class="global-center price-sell">￥{{ item.sellPrice }}</text>
+                        <block wx:if="{{ item.marketPrice != null && item.marketPrice >= item.sellPrice }}">
+                            <text class="global-center price-market">{{ item.marketPrice }}</text>
+                        </block>
+                        <text class="global-center price-unit">{{ item.saleUnit }}</text>
+                    </view>
+
+                    <!-- 销量 -->
+                    <view class="info_">
+                        <block wx:if="{{ item.sellQuantity }}">
+                            <view class="title_">销量: {{ item.sellQuantity }}</view>
+                        </block>
+                        <block wx:if="{{ item.productScore }}">
+                            <view class="value_">评分: {{ item.productScore }}</view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+</template>
+
+        <!-- 购物车列表 template, 名称:cart-list, 样式:scroll-cart -->
+<template name="cart-list">
+    <scroll-view class="template-scroll scroll-cart" scroll-y="true" bindscrolltolower="bindscrolltolower">
+        <block wx:for="{{ itemList }}" wx:key="key">
+            <view class="global-bg-text box_" data-item="{{ item }}" bindtap="{{ allClick? 'toDetailPage' : '' }}" bindtouchstart="touchStartOn" bindtouchmove="touchMoveOn">
+                <!-- 选择列 -->
+                <view class="global-center select {{ (item.cartId == currentTouchId)? 'hide_' : '' }}" data-item="{{ item }}" bindtap="selectItemClick">
+                    <van-icon color="{{ item.selected? '#e64340' : '#ccc' }}" name="checked" size="22px"/>
+                </view>
+
+                <!-- 图片列 -->
+                <view class="global-center icon_" data-item="{{ item }}" bindtap="{{ (iconClick == true )? 'toDetailPage' : '' }}">
+                    <image lazy-load="true" mode="aspectFill" src="{{ item.productIcon }}"/>
+                </view>
+
+                <!-- 内容列 -->
+                <view class="content_">
+                    <!-- 名称 -->
+                    <view class="line2 name_" data-item="{{ item }}" bindtap="{{ nameClick? 'toDetailPage': '' }}">{{ item.productName }}</view>
+
+                    <!-- 标签 -->
+                    <view class="line1 tag_">
+                        <block wx:for="{{ item.tags }}" wx:key="keyTag" wx:for-item="tag">
+                            <van-tag plain round color="#f42">{{ tag }}</van-tag>
+                        </block>
+                    </view>
+
+                    <!-- 起价 市场价 -->
+                    <view class="price_">
+                        <text class="global-center price-sell">￥{{ item.sellPrice }}</text>
+                        <block wx:if="{{ item.marketPrice != null && item.marketPrice >= item.sellPrice }}">
+                            <text class="global-center price-market">{{ item.marketPrice }}</text>
+                        </block>
+                        <text class="global-center price-unit">{{ item.saleUnit }}</text>
+                    </view>
+
+                    <!-- 购买数量 -->
+                    <view class="info_">
+                        <view class="global-center title_">购买数量</view>
+                        <view class="value_">
+                            <van-stepper integer value="{{ item.quantity }}" min="1" input-width="50px" button-size="24px" data-item="{{ item }}" bind:change="buyNumberClick"/>
+                        </view>
+                    </view>
+                </view>
+
+                <!-- 删除列 -->
+                <view class="delete global-center {{ (item.cartId == currentTouchId)? '':'hide_' }}" data-item="{{ item }}" catchtap="deleteItem">删除
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+</template>
+
+        <!-- 订单确认列表 template, 名称:order-confirm-list, 样式:scroll-order-confirm -->
+<template name="order-confirm-list">
+    <scroll-view class="template-scroll scroll-order-confirm" scroll-y="true" bindscrolltolower="bindscrolltolower">
+        <block wx:for="{{ itemList }}" wx:key="key">
+            <view class="global-bg-text box_" data-item="{{ item }}" bindtap="{{ (allClick == true)? 'toDetailPage' : '' }}">
+                <!-- 图片列 -->
+                <view class="global-center icon_" data-item="{{ item }}" bindtap="{{ (iconClick == true )? 'toDetailPage' : '' }}">
+                    <image lazy-load="true" mode="aspectFill" src="{{ item.productIcon }}"/>
+                </view>
+
+                <!-- 内容列 -->
+                <view class="content_">
+                    <!-- 名称 -->
+                    <view class="line2 name_" data-item="{{ item }}" bindtap="{{ (nameClick == true)? 'toDetailPage': '' }}">{{ item.productName }}</view>
+
+                    <!-- 标签 -->
+                    <view class="line1 tag_">
+                        <block wx:for="{{ item.tags }}" wx:key="keyTag" wx:for-item="tag">
+                            <van-tag plain round color="#f42">{{ tag }}</van-tag>
+                        </block>
+                    </view>
+
+                    <!-- 起价 市场价 -->
+                    <view class="price_">
+                        <text class="global-center price-sell">￥{{ item.sellPrice }}</text>
+                        <block wx:if="{{ item.marketPrice != null && item.marketPrice >= item.sellPrice }}">
+                            <text class="global-center price-market">{{ item.marketPrice }}</text>
+                        </block>
+                        <text class="global-center price-unit">{{ item.saleUnit }}</text>
+                    </view>
+
+                    <!-- 销量 -->
+                    <view class="info_">
+                        <view class="title_">x {{ item.quantity }}</view>
+                        <view class="value_">￥{{ item.pay }}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+</template>
+
+        <!-- 订单产品列表 template, 名称: order-product-list -->
+<template name="order-product-list">
+    <scroll-view class="template-scroll scroll-order-product" scroll-y="true">
+        <view class="global-bg-text box_" wx:for="{{ productList }}" wx:for-item="product" wx:key="key">
+            <!-- 图片列 -->
+            <view class="global-center icon_" data-item="{{ product }}" bindtap="{{ (iconClick == true )? 'toDetailPage' : '' }}">
+                <image lazy-load="true" mode="aspectFill" src="{{ product.productIcon }}"/>
+            </view>
+
+            <!-- 内容列 -->
+            <view class="content_">
+                <view class="name-price_">
+                    <view class="line2 name_">{{ product.productName }}</view>
+                    <view class="global-center buy-info_">
+                        <view class="price_">￥{{ product.sellPrice }}</view>
+                        <view class="quantity_">x{{ product.quantity }}</view>
+                    </view>
+                </view>
+
+                <!-- 标签 -->
+                <view class="tag line1">
+                    <block wx:for="{{ item.tags }}" wx:key="keyTag" wx:for-item="tag">
+                        <van-tag plain round color="#f42">{{ tag }}</van-tag>
+                    </block>
+                </view>
+            </view>
+
+        </view>
+    </scroll-view>
+</template>

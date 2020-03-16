@@ -1,0 +1,90 @@
+<!--pages/my/index.wxml-->
+<view class="general">
+    <view class="global-center icon">
+        <block wx:if="{{ customer!= null }}">
+            <van-image lazy-load round width="160rpx" height="160rpx" src="{{ customer.avatar }}"/>
+        </block>
+        <block wx:else>
+            <view class="avatar-wx">
+                <open-data type="userAvatarUrl"></open-data>
+            </view>
+        </block>
+    </view>
+    <view class="global-center name">
+        <block wx:if="{{ customer.nickName != null }}">
+            <view class="nick">{{ customer.realName }}</view>
+            <view class="nick-wx">{{ customer.nickName }}</view>
+        </block>
+        <block wx:else>
+            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录/注册</button>
+        </block>
+    </view>
+    <view class="message">
+        <van-icon color="#FFF" name="bell" size="18px"/>
+        <view class="m_text">消息</view>
+    </view>
+</view>
+
+<view class="global-bg-text global-center tools1">
+    <view class="tool" bindtap="toPage" data-detail="favorite">
+        <van-icon info="{{ sizeFavorite }}" name="goods-collect" size="20px"/>
+        <view class="title">收藏夹</view>
+    </view>
+    <view class="tool" bindtap="toPage" data-detail="cart">
+        <van-icon info="{{ sizeCart }}" name="shopping-cart" size="22px"/>
+        <view class="title">购物车</view>
+    </view>
+    <view class="tool" bindtap="toPage" data-detail="footprint">
+        <van-icon info="{{  }}" name="browsing-history" size="22px"/>
+        <view class="title">足迹</view>
+    </view>
+    <view class="tool" bindtap="toPage" data-detail="coupon">
+        <van-icon info="{{  }}" name="coupon" size="22px"/>
+        <view class="title">红包卡券</view>
+    </view>
+</view>
+
+<view class="global-bg-text order">
+    <view class="global-center all" bindtap="toPage" data-detail="orderAll">
+        <view class="text">我的订单</view>
+        <view class="see">查看全部订单 ></view>
+    </view>
+
+    <view class="global-center tools">
+        <view class="tool" bindtap="toPage" data-detail="waitPay">
+            <van-icon info="{{ sizeOrderWaitPay }}" name="balance-list" size="22px"/>
+            <view class="title">待付款</view>
+        </view>
+        <view class="tool" bindtap="toPage" data-detail="waitSend">
+            <van-icon info="{{ sizeOrderWaitSend }}" name="todo-list" size="22px"/>
+            <view class="title">待发货</view>
+        </view>
+        <view class="tool" bindtap="toPage" data-detail="waitConfirm">
+            <van-icon info="{{ sizeOrderWaitConfirm }}" name="point-gift" size="22px"/>
+            <view class="title">待收货</view>
+        </view>
+        <view class="tool" bindtap="toPage" data-detail="waitRate">
+            <van-icon info="{{ sizeOrderWaitRate }}" name="comment" size="22px"/>
+            <view class="title">评价</view>
+        </view>
+        <view class="tool" bindtap="toPage" data-detail="refund">
+            <van-icon info="{{ sizeOrderWaitRefund }}" name="column" size="22px"/>
+            <view class="title">退款中</view>
+        </view>
+    </view>
+</view>
+
+<van-cell-group>
+    <van-cell size="large" title="我的服务"/>
+    <van-cell is-link title="我的信息" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="收货地址" link-type="navigateTo" url="/pages/address-list/index"/>
+    <van-cell is-link title="联系客服" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="关于我们" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="意见反馈" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="新产品上架" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="产品管理" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="品类管理" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="客户管理" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="运营人员管理" link-type="navigateTo" url="/pages/dashboard/index"/>
+    <van-cell is-link title="派单管理" link-type="navigateTo" url="/pages/dashboard/index"/>
+</van-cell-group>

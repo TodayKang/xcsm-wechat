@@ -1,0 +1,62 @@
+{
+  "pages": [
+    "pages/category/index",
+    "pages/cart/index",
+    "pages/my/index",
+    "pages/search/index",
+    "pages/product-detail/index",
+    "pages/order-fill/index",
+    "pages/order-my/index",
+    "pages/order-detail/index",
+    "pages/address-list/index",
+    "pages/address-add/index",
+    "pages/manage-order/index",
+    "pages/manage-product/index",
+    "pages/mamage-category/index",
+    "pages/manage-admin/index",
+    "pages/manage-customer/index",
+    "pages/login-register/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "欣昌商贸",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#929292",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "selectedColor": "#00afb4",
+    "list": [
+      {
+        "pagePath": "pages/category/index",
+        "iconPath": "images/tab-bars/category-off.png",
+        "selectedIconPath": "images/tab-bars/category-on.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "iconPath": "images/tab-bars/cart-off.png",
+        "selectedIconPath": "images/tab-bars/cart-on.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "images/tab-bars/my-off.png",
+        "selectedIconPath": "images/tab-bars/my-on.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 5000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

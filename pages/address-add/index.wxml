@@ -1,0 +1,74 @@
+<!--pages/my-address-add/index.wxml-->
+<view class="global-bg-text address-detail">
+  <form bind:submit="addressSave">
+
+    <view class="detail-box">
+      <view class="box-left">收货人</view>
+      <view class="box-right">
+        <input hidden name="addressId" type="text" value="{{ (item.addressId != null)? item.addressId: addressId }}" />
+        <input name="realName" class="name" type="text" placeholder="真实姓名(不超过10个汉字或字符)" value="{{ address.realName }}" />
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">性别</view>
+      <view class="gender">
+        <input hidden name="gender" type="text" value="{{ (gender == 'M' || gender == 'F')? gender : '' }}" />
+        <view data-gender="M" bindtap="genderClick" class="male {{ (gender == 'M')? 'select' : 'no-select' }}">
+          <van-icon name="checked" size="22px" />
+        </view>
+        <view data-gender="M" bindtap="genderClick" class="male-text">先生</view>
+        <view style="width:60rpx;"></view>
+        <view data-gender="F" bindtap="genderClick" class="female {{ (gender == 'F')? 'select' : 'no-select' }}">
+          <van-icon name="checked" size="22px" />
+        </view>
+        <view data-gender="F" bindtap="genderClick" class="female-text">女士</view>
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">手机号码</view>
+      <view class="box-right">
+        <input name="phone" class="phone" type="number" placeholder="11位手机号码" value="{{ address.phone }}" />
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">电子邮箱</view>
+      <view class="box-right">
+        <input name="email" class="email" type="text" placeholder="电子邮箱地址" value="{{ address.email }}" />
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">地区信息</view>
+      <view class="box-right">
+        <picker mode="region" bindchange="regionChange" value="{{ currentRegion }}" custom-item="请选择">{{currentRegion[0]}} / {{currentRegion[1]}} / {{currentRegion[2]}}
+        </picker>
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">详细信息</view>
+      <view class="box-right">
+        <textarea name="detail" placeholder-class="detail" maxlength="-1" selection-end="-1" selection-start="-1" auto-height placeholder="街道门牌信息(不少于6个汉字或字符)" value="{{ address.detail }}" />
+      </view>
+    </view>
+
+    <view class="detail-box">
+      <view class="box-left">邮政编码</view>
+      <view class="box-right">
+        <input name="postCode" class="post" type="number" placeholder="邮政编码(不填默认:000000)" value="{{ address.postCode }}" />
+      </view>
+    </view>
+
+
+
+    <view class="address-action">
+      <button type="warn" form-type="submit" class="action-save">保存</button>
+      <view style="height:20rpx;"></view>
+      <button type="default" class="action-cancel" bindtap="addressCancel">取消</button>
+    </view>
+
+  </form>
+</view>

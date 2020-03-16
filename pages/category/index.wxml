@@ -1,0 +1,24 @@
+<!--pages/category/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
+
+<van-sticky>
+    <van-search placeholder="请输入搜索关键词" bind:focus="toSearchPage" />
+
+    <van-tabs animated swipeable active="0" bind:change="tabOnChange">
+        <block wx:for="{{ categoryList }}" wx:key="key">
+            <van-tab name="{{ item.categoryId }}" title="{{ item.categoryName }}" />
+        </block>
+    </van-tabs>
+</van-sticky>
+
+<block wx:if="{{ loadReady }}">
+
+    <block wx:if="{{ itemList == null || itemList.length == 0 }}">
+        <template is="SEARCH" />
+    </block>
+    <block wx:else>
+        <template is="product-list" data="{{ itemList: itemList, allClick: true }}" />
+    </block>
+
+</block>

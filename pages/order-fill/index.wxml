@@ -1,0 +1,70 @@
+<!--pages/order-fill/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
+
+<block wx:if="{{ loadReady }}">
+
+    <van-sticky>
+        <view class="sticky-bg">
+            <view class="global-bg-text box-address">
+                <view class="address">
+                    <block wx:if="{{ address == null }}">
+                        <view class="null global-center" bindtap="addressMoreClick">点击添加收货地址</view>
+                    </block>
+                    <block wx:else>
+                        <view class="icon global-center">
+                            <van-icon color="#ff8c00" name="location" size="30px" />
+                        </view>
+                        <view class="detail global-center">
+                            <view class="full">{{ address.detailFull }}</view>
+                            <view class="name">
+                                <block>{{ address.realName }}</block>
+                                <block wx:if="{{ address.gender == 'M' || address.gender == 'F' }}">({{ (address.gender == 'F')? '女士': '先生'}})</block>
+                                <text class="phone">{{ address.phone }}</text>
+                            </view>
+                        </view>
+                        <view class="more global-center" bindtap="addressMoreClick">
+                            <van-icon color="#999" name="arrow" size="20px" />
+                        </view>
+                    </block>
+                </view>
+                <view class="date">
+                    <view class="title global-center" style="color:{{ date.today == date.date ? '#f43f3b;': '#39b54a;'}}">
+                        <block wx:if="{{ date.today == date.date }}">尽快送达</block>
+                        <block wx:else>期望送达</block>
+                    </view>
+                    <view class="value global-center" style="color:{{ date.today == date.date ? '#f43f3b;': '#39b54a;'}}">
+                        <picker mode="date" value="{{ date.date }}" start="{{ date.today }}" bindchange="bindDateChange">
+                            <view>{{ date.weekCn }}-{{ date.weekEn }}</view>
+                            <view>{{ date.date }}</view>
+                        </picker>
+                    </view>
+                    <view class="more global-center" bindtap="bindDateChange">
+                        <picker mode="date" bindchange="bindDateChange">
+                            <van-icon color="#999" name="arrow" size="20px" />
+                        </picker>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </van-sticky>
+
+    <block wx:if="{{ itemList == null || itemList.length < 1 }}">
+        <template is="MESSAGE" />
+    </block>
+    <block wx:else>
+
+        <template is="order-confirm-list" data="{{ itemList: itemList, onOrder: true, nameClick: true }}" />
+
+        <view class="global-bg-text global-bottom-fixed order-bottom">
+            <view class="bottom-price">
+                <text class="quantity">共 {{ (quantity ==null)? '-': quantity }} 件</text>
+                <text>应付:</text>
+                <text class="price">￥{{ (payActually != null)? payActually : '-'}}</text>
+            </view>
+            <view wx:if="{{ address == null }}" class="global-center submit submit-no">提交订单</view>
+            <view wx:if="{{ address != null }}" class="global-center submit" bindtap="createOrder">提交订单</view>
+        </view>
+    </block>
+
+</block>

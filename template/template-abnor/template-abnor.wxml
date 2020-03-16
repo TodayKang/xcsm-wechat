@@ -1,0 +1,89 @@
+<!-- 异常面板 -->
+
+<template name="ASSIGN">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ image_ != null && image_ != '' }}" src="{{ image_ }}" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ title_ != null && title_ != '' }}">{{ title_ }}</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>
+
+<template name="CART">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-cart.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">购物车还是空的哦~~</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ true }}" bindtap="abnorClick">去逛逛</view>
+        </view>
+    </view>
+</template>
+
+<template name="COUPON">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-coupon.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">你还没有可用的店铺优惠券哦~~</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>
+
+<template name="DATA">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-data.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">没有相关数据~~</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>
+
+<template name="ERROR-NETWORK">
+    <view class="abnor_">
+        <view class="abnor-box">
+            <image wx:if="{{ true }}" src="/images/abnor/error-network.png" mode="widthFix"/>
+            <view class="abnor-title" wx:if="{{ true }}">网络加载失败</view>
+            <view class="abnor-tip" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn" wx:if="{{ true }}" bindtap="abnorClick">刷新重试</view>
+        </view>
+    </view>
+</template>
+
+<template name="ORDER">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-order.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">您还没有相关的订单</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>
+
+<template name="SEARCH">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-search.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">抱歉，没有找到相关数据~~</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>
+
+<template name="MESSAGE">
+    <view class="abnor_">
+        <view class="abnor-box_">
+            <image wx:if="{{ true }}" src="/images/abnor/no-message.png" mode="widthFix"/>
+            <view class="abnor-title_" wx:if="{{ true }}">当前产品飞走啦，请选择其他产品吧~~</view>
+            <view class="abnor-tip_" wx:if="{{ tip_ != null && tip_ != '' }}">{{ tip_ }}</view>
+            <view class="abnor-btn_" wx:if="{{ button_ != null && button_ != '' }}" bindtap="abnorClick">{{ button_ }}</view>
+        </view>
+    </view>
+</template>

@@ -1,0 +1,83 @@
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #ececec;
+  color: #3c3c3c;
+  font-size: 28rpx;
+}
+
+.line1 {
+  /*如果不是block元素，还需要设置这个*/
+  display: inline-block;
+  /*超出隐藏*/
+  overflow: hidden;
+  /*超出用省略号*/
+  text-overflow: ellipsis;
+  /*不换行*/
+  white-space: nowrap;
+}
+
+.line2 {
+  /*设置里面元素排列顺序*/
+  -webkit-box-orient: vertical;
+  /*必需设置*/
+  -webkit-line-clamp: 2;
+  /*必须使用这个*/
+  display: -webkit-box;
+  /*必须使用，超出隐藏*/
+  overflow: hidden;
+  /*里面问题排列方式*/
+  text-align: justify;
+  /*使用省略号*/
+  text-overflow: ellipsis;
+  /*正常换行*/
+  white-space: normal;
+}
+
+.van-tag {
+  margin-right: 6rpx;
+}
+
+.price-sell {
+  margin-left: 10rpx;
+  color: #f42;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.price-market {
+  margin-left: 12rpx;
+  color: #666;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-decoration: line-through;
+}
+
+.price-unit {
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  font-weight: bold;
+}
+
+.global-bg-text {
+  background-color: #fcfcfc;
+}
+
+.global-center {
+  display: flex;
+  flex-direction: column;
+  /*  flex-direction: row;*/
+  justify-content: center;
+}
+
+.global-bottom-fixed {
+  width: 100%;
+  border-top: 1px solid #f4f4f4;
+  display: flex;
+  bottom: 0px;
+  position: fixed;
+}
+
+.hide_ {
+  display: none !important;
+}

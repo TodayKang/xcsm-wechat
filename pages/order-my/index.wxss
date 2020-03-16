@@ -1,0 +1,69 @@
+/* pages/my-order/index.wxss */
+
+@import "/template/template-abnor/template-abnor.wxss";
+
+@import "/template/template-list-item/template-list-item.wxss";
+
+.scroll-order-list {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20rpx;
+}
+
+.order-content {
+    margin: 0 10rpx;
+    margin-top: 20rpx;
+    padding: 0 10rpx;
+    border-radius: 20rpx;
+    font-size: 26rpx;
+}
+
+.order-content .summary {
+    width: 100%;
+    height: 60rpx;
+    display: flex;
+    font-size: 28rpx;
+    font-weight: bold;
+}
+
+.order-content .summary .date {
+    width: 28%;
+    text-align: center;
+}
+
+.order-content .summary .order-id {
+    width: 34%;
+}
+
+.order-content .summary .status {
+    width: 28%;
+    color: #f90;
+    text-align: right;
+}
+
+.order-content .summary .icon {
+    width: 10%;
+    color: #999;
+    text-align: center;
+}
+
+.order-content .price {
+    width: 100%;
+    border-top: 2rpx solid #ececec;
+    padding-left: 200rpx;
+    height: 60rpx;
+    display: flex;
+}
+
+.order-content .operation {
+    width: 100%;
+    padding: 10rpx 0 20rpx 0;
+    text-align: right;
+}
+
+.order-content .operation text {
+    margin-right: 20rpx;
+    border: 2rpx solid #999;
+    border-radius: 6rpx;
+    padding: 4rpx 8rpx;
+}

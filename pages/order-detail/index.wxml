@@ -1,0 +1,168 @@
+<!--pages/order-detail/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml"/>
+<import src="/template/template-list-item/template-list-item.wxml"/>
+
+<block wx:if="{{ loadReady }}">
+
+    <!-- 普通用户不能看到这些状态的订单 -->
+    <block wx:if="{{ item==null || item.statusEn=='hasDelete' || item.statusEn=='hasDiscard'}}">
+        <template is="ORDER"></template>
+    </block>
+    <block wx:else>
+
+        <view class="order-status">{{ order.statusZh }}</view>
+
+        <view class="global-bg-text order-box">
+            <view class="box-title">配送地址</view>
+            <view class="box-content address">
+                <view class="global-center icon">
+                    <van-icon name="location" size="30px"/>
+                </view>
+                <view class="address-detail">
+                    <view class="name-phone">
+                        <text class="name">{{ delivery.receiver }}</text>
+                        <text class="phone" data-phone="{{ delivery.receiverPhone }}" bindtap="makePhoneCall">{{ delivery.receiverPhone }}</text>
+                    </view>
+                    <view class="address-full">{{ delivery.addressDetail }}</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="global-bg-text order-box">
+            <view class="box-title">配送信息</view>
+            <view class="box-content delivery">
+                <view class="global-center icon">
+                    <van-icon name="logistics" size="30px"/>
+                </view>
+                <view class="detail">
+
+                    <view class="box">
+                        <view class="title">期望送达时间:</view>
+                        <view class="value">
+                            <block wx:if="{{ delivery.arrivedExpect != null }}">{{ delivery.arrivedExpect }}</block>
+                            <block wx:else>尽快</block>
+                        </view>
+                    </view>
+                    <view class="box">
+                        <view class="title">送达时间:</view>
+                        <view class="value">
+                            <block wx:if="{{ delivery.arrived != null }}">{{ delivery.arrived }}</block>
+                            <block wx:else>待发货</block>
+                        </view>
+                    </view>
+                    <view class="box">
+                        <view class="title">配送员:</view>
+                        <view class="value">
+                            <block wx:if="{{ delivery.postmanName != null }}">
+                                {{ delivery.postmanName }}
+                            </block>
+                            <block wx:else>待分配</block>
+                        </view>
+                    </view>
+                    <view class="box">
+                        <view class="title">配送员电话:</view>
+                        <view class="value" data-phone="{{ delivery.postmanPhone == null }}" bindtap="makePhoneCall">
+                            <block wx:if="{{ delivery.postmanPhone != null }}">
+                                {{ delivery.postmanPhone }}
+                            </block>
+                            <block wx:else>待分配</block>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="global-bg-text order-box">
+            <view class="box-title">下单产品</view>
+            <view class="order-product">
+                <template is="order-product-list" data="{{ productList: productList }}"/>
+            </view>
+        </view>
+
+        <view class="global-bg-text order-box">
+            <view class="box-title">商品总价</view>
+            <view class="box-content price">
+                <view class="box" wx:if="{{ order.market != null && order.market > 0 && order.market >= order.pay }}">
+                    <view class="title">市场价</view>
+                    <view class="value">￥{{ order.market }}</view>
+                </view>
+                <view class="box" wx:if="{{ order.coupon != null && order.coupon > 0 }}">
+                    <view class="title">促销</view>
+                    <view class="value">￥{{ order.coupon }}</view>
+                </view>
+                <view class="box" wx:if="{{ order.promotion != null && order.promotion > 0 }}">
+                    <view class="title">优惠</view>
+                    <view class="value">￥{{ order.promotion }}</view>
+                </view>
+                <view class="box">
+                    <view class="title">运费</view>
+                    <view class="value">免运费</view>
+                </view>
+                <view class="box" wx:if="{{ order.total != null && order.total >= 0 }}">
+                    <view class="title">订单总价</view>
+                    <view class="value price-market">￥{{ order.total }}</view>
+                </view>
+                <view class="box price-actually">
+                    <view class="title">实付款</view>
+                    <view class="value price-sell">￥{{ order.pay }}</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="global-bg-text order-box order">
+            <view class="box-title">订单信息</view>
+            <view class="box-content">
+                <view class="box">
+                    <view class="title">订单编号</view>
+                    <view class="value">{{ order.orderId }}</view>
+                </view>
+                <view class="box">
+                    <view class="title">创建时间</view>
+                    <view class="value">{{ order.createDate }}</view>
+                </view>
+                <view class="box" wx:if="{{ order.payTime != null }}">
+                    <view class="title">付款时间</view>
+                    <view class="value">{{ order.payTime }}</view>
+                </view>
+                <view class="box">
+                    <view class="title">发货时间</view>
+                    <view class="value">
+                        <block wx:if="{{ orderDelivery.expressBegin != null }}">{{ orderDelivery.expressBegin }}</block>
+                        <block wx:else>还未发货</block>
+                    </view>
+                </view>
+                <view class="box">
+                    <view class="title">送达时间</view>
+                    <view class="value">
+                        <block wx:if="{{ orderDelivery.expressEnd != null }}">{{ orderDelivery.expressEnd }}</block>
+                        <block wx:else>还未送达</block>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="global-bg-text global-bottom-fixed operation">
+            <block wx:if="{{ item.statusEn == 'waitPay' }}">
+                <text class="cancel" data-action="cancel" data-item="{{ item }}" bindtap="orderActionClick">取消订单</text>
+                <text class="pay" data-action="pay" data-item="{{ item }}" bindtap="orderActionClick">立即付款</text>
+            </block>
+            <block wx:if="{{ item.statusEn == 'hasClosed' || item.statusEn == 'hasComplete' || item.statusEn == 'waitRate' }}">
+                <text class="delete" data-action="delete" data-item="{{ item }}" bindtap="orderActionClick">删除订单</text>
+            </block>
+            <block wx:if="{{ item.statusEn == 'waitSend' || item.statusEn == 'waitConfirm' || item.statusEn == 'waitRate' }}">
+                <text class="refund" data-action="refund" data-item="{{ item }}" bindtap="orderActionClick">申请退款</text>
+            </block>
+            <block wx:if="{{ item.statusEn == 'waitRefund' }}">
+                <text class="pay" data-action="refund" data-item="{{ item }}">待退款</text>
+            </block>
+            <block wx:if="{{ item.statusEn != 'waitPay' }}">
+                <text class="buy" data-action="buy" data-item="{{ item }}" bindtap="orderActionClick">再次购买</text>
+            </block>
+            <block wx:if="{{ item.statusEn == 'waitRate' }}">
+                <text class="rate" data-action="rate" data-item="{{ item }}" bindtap="orderActionClick">评价</text>
+            </block>
+        </view>
+
+    </block>
+
+</block>

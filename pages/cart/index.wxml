@@ -1,0 +1,36 @@
+<!--pages/cart/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
+
+<block wx:if="{{ loadReady }}">
+
+    <van-sticky>
+        <view class="cart-top global-bg-text">
+            <view class="label global-center">欣昌商贸微商城</view>
+            <view class="edit global-center" wx:if="{{  showEdit }}" bindtap="editOnClick">编辑</view>
+            <view class="edit global-center" wx:if="{{ !showEdit }}" bindtap="editOnClick">完成</view>
+        </view>
+    </van-sticky>
+
+    <block wx:if="{{ itemList == null || itemList.length == 0 }}">
+        <template is="CART" />
+    </block>
+    <block wx:else>
+        <template is="cart-list" data="{{ itemList: itemList, currentTouchId: currentTouchId, nameClick: true }}" />
+    </block>
+
+    <view class="cart-bottom global-bg-text global-bottom-fixed" wx:if="{{ itemList != null && itemList.length > 0 }}">
+        <view class="select" style="color:{{ selectAll? '#e64340;' : '#999;' }}" bindtap="selectAllOnClick">
+            <view class="icon global-center">
+                <van-icon info="{{ selectQuantity }}" name="checked" size="22px" />
+            </view>
+            <view class="text global-center">全选</view>
+        </view>
+        <view class="price global-center price-sell">
+            <block wx:if="{{ showEdit }}">￥{{ (payActually != null && !selectNone)? payActually : '--'}}</block>
+        </view>
+        <view class="pay global-center {{ selectNone?'select-none':'' }}" wx:if="{{  showEdit }}" bindtap="toOrderPageOnClick">去结算</view>
+        <view class="pay global-center {{ selectNone?'select-none':'' }}" wx:if="{{ !showEdit }}" bindtap="deleteSelectedOnClick">删除</view>
+    </view>
+
+</block>

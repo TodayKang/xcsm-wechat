@@ -1,0 +1,191 @@
+/* pages/product-detail/index.wxss */
+@import "/template/template-abnor/template-abnor.wxss";
+
+.product-error {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.068);
+    opacity: 3;
+    position: fixed;
+}
+
+.product-detail {
+    position: relative;
+}
+
+.product-error .error-content {
+    width: 60%;
+    min-height: 40%;
+    background: #fff;
+    align-items: center;
+}
+
+.product-error .error-content image {
+    width: 90%;
+}
+
+.product-error .error-content .text {
+    padding: 20rpx;
+    font-size: 32rpx;
+    text-align: center;
+}
+
+.swiper-image image {
+    width: 100%;
+    height: 500rpx;
+    position: relative;
+}
+
+.swiper-image .inon-product-id {
+    width: 97%;
+    top: 20rpx;
+    position: absolute;
+    text-align: right;
+    font-weight: bold;
+    font-size: 24rpx;
+}
+
+.swiper-image .inon-product-id text {
+    padding: 6rpx 10rpx;
+    border-radius: 10rpx;
+    color: #fff;
+    background: linear-gradient(to right, #ff9700, #ed1c24);
+}
+
+.detail-price {
+    width: 100%;
+    height: 80rpx;
+    display: flex;
+    text-align: center;
+    font-size: 22rpx;
+}
+
+.detail-price .price {
+    width: 60%;
+    height: 100%;
+    flex-direction: row;
+    color: #fff !important;
+    background: linear-gradient(to right, #ec0000, #df3b87);
+}
+
+.detail-price .activity {
+    width: 40%;
+    height: 100%;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    background: #fcfcfc;
+}
+
+.price .price-sell, .price .price-market, .price .price-unit {
+    color: #fff !important;
+}
+
+.activity .van-count-down {
+    color: #f42;
+}
+
+.detail-title {
+    width: 100%;
+    font-size: 28rpx;
+    border-radius: 0 0 20rpx 20rpx;
+}
+
+.detail-title .tag {
+    padding: 10rpx;
+}
+
+.detail-title .title {
+    padding: 10rpx;
+    font-weight: bold;
+}
+
+.detail-title .desc {
+    padding: 10rpx;
+    font-size: 26rpx;
+    font-weight: normal;
+}
+
+.detail-buy {
+    width: 100%;
+    margin: 20rpx 0;
+    padding: 20rpx 0;
+    border-radius: 20rpx;
+    display: flex;
+    font-size: 24rpx;
+}
+
+.detail-buy .left {
+    width: 35%;
+    padding-left: 20rpx;
+    font-size: 26rpx;
+}
+
+.scroll-icon-list {
+    margin: 0 0 140rpx 0;
+    border-radius: 20rpx;
+}
+
+.detail-icon {
+    width: 100%;
+    padding: 20rpx 0;
+    align-items: center;
+    text-align: center;
+}
+
+.detail-icon image {
+    width: 90%;
+}
+
+.detail-bottom {
+    width: 100%;
+    height: 100rpx;
+}
+
+.detail-bottom .bottom-tools {
+    width: 36%;
+    height: 100%;
+    display: flex;
+    font-size: 20rpx;
+    text-align: center;
+    background: #fffafa;
+}
+
+.detail-bottom .buttom-action {
+    width: 64%;
+    height: 100%;
+    display: flex;
+    font-weight: bold;
+    font-size: 32rpx;
+    color: #fff;
+}
+
+.bottom-tools .tools-cart, .bottom-tools .tools-favorite {
+    width: 50%;
+    height: 100%;
+}
+
+.buttom-action view {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.buttom-action .action-addCart {
+    background: linear-gradient(to right, #ff9700, #ff8917);
+}
+
+.buttom-action .action-buyNow {
+    background: linear-gradient(to right, #ff6034, #ee0a24);
+}
+
+.buttom-action .action-future {
+    background: linear-gradient(to right, #ff6034, #ee0a24);
+}
+
+.buttom-action .action-disabled {
+    width: 100%;
+    background: #999;
+}

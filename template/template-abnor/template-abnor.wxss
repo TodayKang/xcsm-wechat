@@ -1,0 +1,53 @@
+.abnor_ {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.abnor_ .abnor-box_ {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+}
+
+.abnor-box_ image_ {
+  width: 514rpx;
+  background: transparent no-repeat;
+  background-size: cover;
+}
+
+.abnor-box_ .abnor-title_ {
+  margin-top: 30rpx;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.abnor-box_ .abnor-tip_ {
+  margin-top: 20rpx;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.abnor-btn_ {
+  min-width: 228rpx;
+  height: 66rpx;
+  border: 0 none;
+  border-radius: 2px;
+  margin-top: 30rpx;
+  padding: 0 30rpx;
+  background-color: #ff5777;
+  color: #fff;
+  font-size: 28rpx;
+  overflow: hidden;
+  line-height: 66rpx;
+  text-align: center;
+}

@@ -1,0 +1,117 @@
+<!--pages/product-detail/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml" />
+
+<block wx:if="{{ loadReady }}">
+
+    <block wx:if="{{ product == null || product.deleteFlag == null || product.saleFlag == null }}">
+        <template is="MESSAGE" data="{{button_: '去看看其他的吧' }}" />
+    </block>
+    <block wx:else>
+
+        <view class="global-center product-error" wx:if="{{ !(product.status_.status == 'NOW' || product.status_.status == 'FUTURE') }}">
+            <view class="global-center error-content">
+                <image mode="widthFix" src="/images/abnor/no-message.png" />
+                <view class="text">{{ product.status_.text }}</view>
+            </view>
+
+        </view>
+
+        <view class="product-detail">
+
+            <swiper indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000" class="swiper-image">
+                <block wx:for="{{ iconList }}" wx:key="key">
+                    <swiper-item>
+                        <image lazy-load="true" mode="widthFix" src="{{item.path}}" />
+                        <view class="inon-product-id">
+                            <text>产品编号: {{ product.productId }}</text>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+
+            <view class="detail-price">
+                <view class="global-center price">
+                    <text class="global-center price-sell">￥{{ product.sellPrice }}</text>
+                    <block wx:if="{{ product.marketPrice !=null && product.marketPrice >= product.sellPrice }}">
+                        <text class="global-center price-market">{{ product.marketPrice }}</text>
+                    </block>
+                    <text class="global-center price-unit">{{ product.saleUnit }}</text>
+                </view>
+                <view class="global-center activity">
+                    <view wx:if="{{ product.status_.status == 'NOW' || product.status_.status == 'FUTURE' }}">
+                        <view>{{ product.status_.title }}</view>
+                        <block wx:if="{{ product.status_.second < 60 * 1000 }}">
+                            <van-count-down time="{{ product.status_.second }}" format="DD天HH时mm分ss秒" bind:finish="countDownRefresh" />
+                        </block>
+                        <block wx:elif="{{ product.status_.second < 60 * 60 * 1000 }}">
+                            <van-count-down time="{{ product.status_.second }}" format="HH时mm分ss秒" bind:finish="countDownRefresh" />
+                        </block>
+                        <block wx:elif="{{ product.status_.second < 60 * 1000 }}">
+                            <van-count-down time="{{ product.status_.second }}" format="HH时mm分ss秒" bind:finish="countDownRefresh" />
+                        </block>
+                        <block wx:else>
+                            <van-count-down time="{{ product.status_.second }}" format="DD天HH时mm分ss秒" bind:finish="countDownRefresh" />
+                        </block>
+                    </view>
+                    <view wx:else>{{ product.status_.title }}</view>
+                </view>
+            </view>
+
+            <view class="global-bg-text detail-title">
+                <view class="tag">
+                    <block wx:for="{{ product.tags }}" wx:key="keyTag" wx:for-item="tag">
+                        <van-tag plain round color="#f42" size="medium">{{ tag }}</van-tag>
+                    </block>
+                </view>
+                <view class="title">{{ product.productName }}</view>
+                <view class="desc" wx:if="{{ product.productDetail != null && product.productDetail != '' }}">{{ product.productDetail }}</view>
+            </view>
+
+            <view class="global-bg-text detail-buy">
+                <view class="left global-center">购买数量:</view>
+                <van-stepper integer value="{{ 1 }}" min="1" input-width="50px" button-size="24px" bind:change="buyNumberClick" />
+            </view>
+
+            <scroll-view class="global-bg-text scroll-icon-list" scroll-y="true">
+                <view class="detail-icon global-center" wx:for="{{ iconList }}" wx:key="key">
+                    <image lazy-load="true" mode="widthFix" src="{{item.path}}" />
+                </view>
+            </scroll-view>
+
+            <view class="global-bg-text global-bottom-fixed detail-bottom">
+                <view class="bottom-tools">
+                    <view class="global-center tools-cart" bindtap="cartOnClick">
+                        <van-icon color="#ff6034" info="{{ cartSize }}" name="shopping-cart-o" size="22px" />
+                        <view style="color:#ff6034;">购物车</view>
+                    </view>
+
+                    <view class="global-center tools-favorite" bindtap="favoriteOnClick">
+                        <block wx:if="{{ favoriteSize > 0 }}">
+                            <van-icon color="#ff6034" name="star" size="22px" />
+                            <view style="color:#ff6034;">已收藏</view>
+                        </block>
+                        <block wx:else>
+                            <van-icon color="#949494" name="star-o" size="22px" />
+                            <view style="color:#949494;">收藏</view>
+                        </block>
+                    </view>
+                </view>
+                <view class="buttom-action" wx:if="{{ product.status_.status == 'NOW' || product.status_.status == 'FUTURE' }}">
+                    <block wx:if="{{ product.status_.status == 'NOW' }}">
+                        <view class="global-center action-addCart" bindtap="addCart">添加购物车</view>
+                        <view class="global-center action-buyNow" bindtap="buyNow">立即购买</view>
+                    </block>
+                    <block wx:elif="{{ product.status_.status == 'FUTURE' }}">
+                        <view class="global-center action-addCart">添加购物车</view>
+                        <view class="global-center action-future">即将开售</view>
+                    </block>
+                    <block wx:else>
+                        <view class="global-center action-disabled">不可售</view>
+                    </block>
+                </view>
+            </view>
+
+        </view>
+    </block>
+
+</block>

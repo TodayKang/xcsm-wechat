@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "产品详情",
+    "usingComponents": {
+        "van-count-down": "/miniprogram_npm/@vant/weapp/count-down/index",
+        "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+        "van-stepper": "/miniprogram_npm/@vant/weapp/stepper/index",
+        "van-tag": "/miniprogram_npm/@vant/weapp/tag/index"
+    }
+}

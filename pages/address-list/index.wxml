@@ -1,0 +1,43 @@
+<!--pages/my-address/index.wxml-->
+<import src="/template/template-abnor/template-abnor.wxml"/>
+
+<block wx:if="{{ loadReady }}">
+
+    <block wx:if="{{ itemList == null || itemList.length <1 }}">
+        <template is="DATA"/>
+    </block>
+    <block wx:else>
+        <scroll-view class="scroll-address" scroll-y="true">
+            <block wx:for="{{ itemList }}" wx:key="key">
+                <view class="address">
+                    <view class="global-center select {{(addressId == null)? 'hide_' : ''}}" style="{{(item.addressId == addressId ) ? 'color:#e64340' : '' }}"
+                          data-item="{{ item }}" bindtap="currentAddressClick">
+                        <van-icon name="checked" size="22px"/>
+                    </view>
+                    <view class="detail" style="{{ (addressId == null)? 'width:100%;' : '' }}">
+                        <view class="name">
+                            <block>{{ item.realName }}</block>
+                            <block wx:if="{{ item.gender == 'M' || item.gender == 'F' }}">({{ (item.gender == 'F')? '女士': '先生'}})</block>
+                            <text class="phone">{{ item.phone }}</text>
+                        </view>
+                        <view class="action">
+                            <view class="full">
+                                <van-tag plain round color="#f42">{{(item.defaultFlag == 'Y')? '默认' : item.city }}</van-tag>
+                                <text>{{ item.detailFull }}</text>
+                            </view>
+                            <view class="global-center edit" data-item="{{ item }}" bindtap="addressEditOrNew">
+                                <van-icon name="edit" size="22px"/>
+                            </view>
+                            <view class="global-center delete" data-item="{{ item }}" bindtap="addressDelete">
+                                <van-icon name="delete" size="22px"/>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </scroll-view>
+    </block>
+
+</block>
+
+<view class="global-bottom-fixed global-center address-bottom" bindtap="addressEditOrNew">添加收货地址</view>

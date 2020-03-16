@@ -1,0 +1,118 @@
+/*  template 统一 */
+
+.template-scroll {
+    margin-bottom: 140rpx;
+}
+
+.template-scroll .box_ {
+    width: 100%;
+    height: 230rpx;
+    border-bottom: 2rpx solid #f4f4f4;
+    display: flex;
+}
+
+.box_ .icon_ {
+    width: 25%;
+    height: 100%;
+    align-items: center;
+ }
+
+.box_ .content_ {
+    width: 75%;
+    height: 100%;
+    padding: 2rpx 10rpx;
+    position: relative;
+}
+
+.box_ .icon_ image {
+    width: 96%;
+    height: 90%;
+}
+
+.box_ .name_ {
+    font-weight: bold;
+}
+
+.box_ .price_ {
+    display: flex;
+}
+
+.box_ .info_ {
+    width: 100%;
+    bottom: 6rpx;
+    color: #666;
+    display: flex;
+    font-size: 26rpx;
+    font-weight: bold;
+    position: absolute;
+}
+
+.box_ .title_ {
+    width: 45%;
+    padding-left: 6rpx;
+}
+
+.box_ .value_ {
+    padding-left: 6rpx;
+}
+
+/*  产品列表 template, 名称:product-list, 样式:scroll-product  */
+
+.scroll-product {
+    margin-bottom: 20rpx;
+}
+
+/*  购物车列表 template, 名称:cart-list, 样式:scroll-cart  */
+
+.scroll-cart .select, .scroll-cart .delete {
+    width: 10%;
+    height: 100%;
+}
+
+.scroll-cart .content_ {
+    width: 65% !important;
+    height: 100%;
+    position: relative;
+}
+
+.scroll-cart .delete {
+    background: #e64340;
+    color: #fff;
+    font-size: 24rpx;
+    text-align: center;
+}
+
+/* 订单确认列表 template, 名称:order-confirm-list, 样式:scroll-order-confirm   */
+
+.scroll-order-confirm {
+    width: auto;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+}
+
+
+/* 订单产品列表 template, 名称: order-product-list, 样式:scroll-order-product */
+
+.scroll-order-product {
+    margin-bottom: 0 !important;
+}
+
+.scroll-order-product .box_ {
+    width: 100%;
+    height: 200rpx !important;
+}
+
+.scroll-order-product .name-price_ {
+    width: 100%;
+    display: flex;
+}
+
+.scroll-order-product .name-price_ .name_ {
+    width: 75% !important;
+}
+
+.scroll-order-product .name-price_ .buy-info_ {
+    width: 25% !important;
+    align-items: center;
+}
+
