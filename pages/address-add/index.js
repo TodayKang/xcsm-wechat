@@ -13,12 +13,10 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         let that = this;
 
         let addressId = options.addressId;
-        addressId = 5;
-        addressId = 'null';
         that.setData({
             addressId: addressId,
         });
@@ -27,14 +25,14 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function () {
+    onReady: function() {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    onShow: function() {
         let that = this;
         that.loadPage();
     },
@@ -42,21 +40,21 @@ Page({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function () {
+    onHide: function() {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function () {
+    onUnload: function() {
 
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function() {
         let that = this;
         that.loadPage();
     },
@@ -64,25 +62,25 @@ Page({
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function () {
+    onReachBottom: function() {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
+    onShareAppMessage: function() {
 
     },
 
-    regionChange: function (e) {
+    regionChange: function(e) {
         let currentRegion = e.detail.value;
         this.setData({
             currentRegion: currentRegion
         })
     },
 
-    checkAddress: function (address) {
+    checkAddress: function(address) {
         let errorMessage = null;
         if (util.StringUtils.isBlank(address)) {
             errorMessage = '请填写联系人姓名';
@@ -148,7 +146,7 @@ Page({
         return errorMessage;
     },
 
-    genderClick: function (e) {
+    genderClick: function(e) {
         let that = this;
 
         let gender = e.currentTarget.dataset.gender;
@@ -159,7 +157,7 @@ Page({
         }
     },
 
-    addressSave: function (e) {
+    addressSave: function(e) {
         let that = this;
         wx.showLoading({
             mask: true
@@ -185,32 +183,37 @@ Page({
             wx.hideLoading();
             return;
         }
-
+        let title = util.StringUtils.isPositiveInteger(address.addressId) ? '修改成功' : '添加成功';
         let url = util.StringUtils.isPositiveInteger(address.addressId) ? '/address/update' : '/address/save';
         let promise = method.requestPost(url, address);
-        promise.then(function (res) {
-            that.setData({
-                addressId: res.data.addressId
-            });
+        promise = promise.then(function(res) {
+            return method.requestGet('/address/query/' + res.data.addressId);
+        }).catch(function() {
+            return Promise.reject();
+        });
 
-            let title = util.StringUtils.isPositiveInteger(address.addressId) ? '修改成功' : '添加成功';
+        promise.then(res => {
+            that.setData({
+                addressId: res.data.addressId,
+                address: res.data,
+            });
             wx.showToast({
                 title: title,
                 icon: 'success',
                 mask: true
             });
-        }).finally(function () {
-            wx.hideLoading();
-        })
+        }).catch(res => {
 
-        // wx.navigateBack({});
+        }).finally(res => {
+            wx.hideLoading();
+        });
     },
 
-    addressCancel: function () {
+    addressCancel: function() {
         wx.navigateBack({});
     },
 
-    loadPage: function () {
+    loadPage: function() {
         let that = this;
         wx.showLoading({
             mask: true
@@ -228,9 +231,9 @@ Page({
         }
 
         let promise = method.requestGet('/address/query/' + addressId);
-        promise.then(function (res) {
+        promise.then(function(res) {
             let address = res.data;
-            if (!method.isNull(address)) {
+            if (util.ObjectUtils.isNotNull(address)) {
                 currentRegion[0] = address['province'];
                 currentRegion[1] = address['city'];
                 currentRegion[2] = address['district'];
@@ -241,11 +244,11 @@ Page({
                 gender: address.gender,
                 currentRegion: currentRegion,
             });
-        }).catch(function (res) {
+        }).catch(function(res) {
             that.setData({
                 currentRegion: currentRegion,
             });
-        }).finally(function () {
+        }).finally(function() {
             wx.hideLoading();
         });
 
