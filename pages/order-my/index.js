@@ -1,8 +1,7 @@
 // pages/my-order/index.js
 
-let config = require('../../utils/config.js');
 let method = require('../../utils/method.js');
-let moment = require("../../miniprogram_npm/moment/index.js");
+let util = require('../../utils/util.js');
 
 Page({
 
@@ -19,18 +18,16 @@ Page({
         let statusEn = options.statusEn;
 
         let activeTab = 'all';
-        let data = config.getPageFirst(null);
-        if (!method.isNull(statusEn) && statusEn !== 'all') {
+        if (util.StringUtils.isNotBlank(statusEn) && statusEn !== 'all') {
             activeTab = statusEn;
         }
         that.setData({
-            activeTab: activeTab,
-            data: config.getPageFirst(null),
             itemList: [],
+            activeTab: activeTab,
+            data: method.page.getFirst(null),
         });
 
         that.loadPage();
-
     },
 
     /**
@@ -74,12 +71,13 @@ Page({
      */
     onReachBottom: function () {
         let that = this;
-        let data = config.getPageNext(that.data.data);
         that.setData({
-            data: data
+            itemList: [],
+            loadReady: false,
+            data: method.page.getFirst(that.data.data),
         });
 
-        that.loadOrderList();
+        that.loadPage();
     },
 
     /**
@@ -114,12 +112,12 @@ Page({
 
         let activeTab = e.detail.name;
         that.setData({
-            itemList: [],
             activeTab: activeTab,
-            data: config.getPageFirst(null),
+            itemList: [],
+            data: method.page.getFirst(null),
         });
 
-        that.loadOrderList();
+        that.loadMore();
     },
 
     showHideOrderProduct: function (e) {
@@ -146,7 +144,7 @@ Page({
             return;
         }
 
-        let promise = config.requestGet('/order-product/query/' + order['orderId']);
+        let promise = method.requestGet('/order-product/query/' + order['orderId']);
         promise.then(function (res) {
             let productList = res.data;
             for (let index in itemList) {
@@ -176,18 +174,13 @@ Page({
         let action = e.currentTarget.dataset.action;
         let order_ = e.currentTarget.dataset.item;
 
-        if (method.isNull(action) || method.isNull(order_)) {
-
-        }
-
         let orderId = order_['orderId'];
 
-        //第一次默认成功
-        Promise.resolve().then(() => {
-            //获取订单当前状态
-            let promise = config.requestGet('/order/query/' + orderId);
-            return promise;
-        }).then(res => {
+        //获取订单当前状态
+        let promise = method.requestGet('/order/query/' + orderId);
+
+        //处理订单逻辑
+        promise = promise.then(res => {
             //解析当前订单状态
             let order = res.data;
             if (order['statusEn'] !== order_['statusEn']) {
@@ -198,7 +191,7 @@ Page({
                 });
 
                 // 订单状态不一致，失败
-                return Promise.reject();
+                return Promise.reject(res);
             }
 
             // 解析跳转逻辑
@@ -227,20 +220,25 @@ Page({
                 }
 
                 //当前是需要调用接口的
-                let promise = config.requestPost('/order/update', data);
+                let promise = method.requestPost('/order/update', data);
                 return promise;
             }
 
             //其他操作返回失败，在 catch 处理
-            return Promise.reject();
-        }).then(res => {
-            //再次调用接口获取处理后的订单状态
-            let promise = config.requestGet('/order/query/' + orderId);
-            return promise;
+            return Promise.reject(res);
+        }).catch(res => {
+            return Promise.reject(res);
+        });
+
+        //再次调用接口获取处理后的订单状态
+        promise = promise.then(res => {
+            return method.requestGet('/order/query/' + orderId);
         }).catch(res => {
             //此时基本上不会发生异常
             return Promise.reject();
-        }).then(res => {
+        });
+
+        promise = promise.then(res => {
             wx.hideLoading();
             //刷新当前订单最新的状态
             let itemList = that.data.itemList;
@@ -265,14 +263,12 @@ Page({
             //再次购买，跳转到填单页
             if (action === 'buy') {
                 //获取当前订单下单产品
-                let promise = config.requestGet('/order-product/query/' + orderId);
+                let promise = method.requestGet('/order-product/query/' + orderId);
                 promise.then(function (res) {
                     let productList = res.data;
-                    let buyInfo = {
+                    wx.setStorageSync('buyInfo', {
                         productList: productList,
-                    };
-
-                    wx.setStorageSync('buyInfo', buyInfo);
+                    });
                     wx.navigateTo({
                         url: '/pages/order-fill/index'
                     });
@@ -283,6 +279,8 @@ Page({
             else if (action === 'rate') {
                 data['orderStatus'] = 'waitSend';
             }
+        }).finally(res => {
+
         });
     },
 
@@ -292,29 +290,25 @@ Page({
             mask: true
         });
 
-        let data = config.getPageFirst(null);
+        let data = method.page.getFirst(that.data.data);
         let activeTab = that.data.activeTab;
         if (activeTab !== 'all') {
             data['statusEn'] = activeTab;
         }
-        let promise1 = config.requestGet('/order-record/status');
-        let promise2 = config.requestPost('/order/query', data);
+        let promise1 = method.requestGet('/order-record/status');
+        let promise2 = method.requestPost('/order/query', data);
         // let promise3 = config.requestPost('/order/size', data);
 
         Promise.all([promise1, promise2]).then(function (res) {
-            let statusList = [{
+            let statusList = util.CollectionUtils.addIfPossible([{
                 statusEn: 'all',
                 statusZh: '全部'
-            }];
-            
-            if (!method.isEmptyCollection(res[0].data)) {
-                statusList = statusList.concat(res[0].data);
-            }
+            }], res[0].data);
 
             that.setData({
                 data: data,
-                itemList: res[1].data,
                 activeTab: activeTab,
+                itemList: res[1].data,
                 statusList: statusList,
             });
         }).catch(function (res) {
@@ -327,7 +321,7 @@ Page({
         });
     },
 
-    loadOrderList: function () {
+    loadMore: function () {
         let that = this;
         wx.showLoading({
             mask: true
@@ -337,19 +331,19 @@ Page({
         if (that.data.activeTab !== 'all') {
             data['statusEn'] = that.data.activeTab;
         }
-        let promise = config.requestPost('/order/query', data);
-        promise.then(function (res) {
-            if (!method.isEmptyCollection(res.data)) {
-                let itemList = that.data.itemList;
-                itemList = itemList.concat(res.data);
+        let promise = method.requestPost('/order/query', data);
+        promise.then(res => {
+            let itemList = that.data.itemList;
+            itemList = util.CollectionUtils.addIfPossibleThenFilter(itemList, res.data);
+            that.setData({
+                itemList: itemList,
+            });
+        }).catch(res => {
 
-                that.setData({
-                    itemList: itemList,
-                });
-            }
-        }).catch(function (res) {
-
-        }).finally(function () {
+        }).finally(res => {
+            that.setData({
+                loadReady: true,
+            });
             wx.hideLoading();
         });
     },
