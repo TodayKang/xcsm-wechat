@@ -67,7 +67,7 @@ let requestApi = {
         let promise = new Promise((resolve, reject) => {
             //微信前端登录获取 js_code
             wx.login({
-                complete(res) {
+                success(res) {
                     resolve(res);
                 }
             });
@@ -75,12 +75,12 @@ let requestApi = {
 
         promise = promise.then(res => {
             //失败
-            if (res['code'] == undefined || res['code'] === null) {
+            if (util.StringUtils.isBlank(res['code'])) {
                 return Promise.reject(res);
             }
 
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            return that.requestGet('/auth/login/' + res.code);
+            return config.requestGet('/auth/login/' + res.code);
         }).catch(res => {
             //失败
             return Promise.reject(res);

@@ -1,6 +1,6 @@
 <!--pages/order-detail/index.wxml-->
-<import src="/template/template-abnor/template-abnor.wxml"/>
-<import src="/template/template-list-item/template-list-item.wxml"/>
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
 
 <block wx:if="{{ loadReady }}">
 
@@ -16,7 +16,7 @@
             <view class="box-title">配送地址</view>
             <view class="box-content address">
                 <view class="global-center icon">
-                    <van-icon name="location" size="30px"/>
+                    <van-icon name="location" size="30px" />
                 </view>
                 <view class="address-detail">
                     <view class="name-phone">
@@ -32,7 +32,7 @@
             <view class="box-title">配送信息</view>
             <view class="box-content delivery">
                 <view class="global-center icon">
-                    <van-icon name="logistics" size="30px"/>
+                    <van-icon name="logistics" size="30px" />
                 </view>
                 <view class="detail">
 
@@ -75,7 +75,7 @@
         <view class="global-bg-text order-box">
             <view class="box-title">下单产品</view>
             <view class="order-product">
-                <template is="order-product-list" data="{{ productList: productList }}"/>
+                <template is="order-product-list" data="{{ productList: productList }}" />
             </view>
         </view>
 

@@ -88,7 +88,7 @@ Page({
                 customer: customer
             });
 
-            // that.loadMyPageData();
+            that.loadMyPageData();
         }).finally(res => {
             wx.hideLoading();
         });
@@ -98,55 +98,48 @@ Page({
         let that = this;
 
         let customer = that.data.customer;
-        if (util.isNull(customer)) {
+        if (util.ObjectUtils.isNull(customer)) {
             return;
         }
 
-        let promiseFavorite = method.requestPost('/favorite/size', {});
-        let promiseCart = method.requestPost('/cart/size', {});
-        let promiseOrderWaitPay = method.requestPost('/order/size', {
+        let promise1 = method.requestPost('/favorite/size', {});
+        let promise2 = method.requestPost('/cart/size', {});
+        let promise3 = method.requestPost('/order/size', {
             statusEn: 'waitPay'
         });
-        let promiseOrderWaitSend = method.requestPost('/order/size', {
+        let promise4 = method.requestPost('/order/size', {
             statusEn: 'waitSend'
         });
-        let promiseOrderWaitConfirm = method.requestPost('/order/size', {
+        let promise5 = method.requestPost('/order/size', {
             statusEn: 'hasConfirm'
         });
-        let promiseOrderWaitRate = method.requestPost('/order/size', {
+        let promise6 = method.requestPost('/order/size', {
             statusEn: 'waitRate'
         });
-        let promiseOrderWaitRefund = method.requestPost('/order/size', {
+        let promise7 = method.requestPost('/order/size', {
             statusEn: 'waitRefund'
         });
 
-        Promise.all([
-            promiseFavorite,
-            promiseCart,
-            promiseOrderWaitPay,
-            promiseOrderWaitSend,
-            promiseOrderWaitConfirm,
-            promiseOrderWaitRate,
-            promiseOrderWaitRefund
-        ]).then(function (res) {
-            let sizeFavorite = res[0].data;
-            let sizeCart = res[1].data;
-            let sizeOrderWaitPay = res[2].data;
-            let sizeOrderWaitSend = res[3].data;
-            let sizeOrderWaitConfirm = res[4].data;
-            let sizeOrderWaitRate = res[5].data;
-            let sizeOrderWaitRefund = res[6].data;
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7])
+            .then(function (res) {
+                let sizeFavorite = res[0].data;
+                let sizeCart = res[1].data;
+                let sizeOrderWaitPay = res[2].data;
+                let sizeOrderWaitSend = res[3].data;
+                let sizeOrderWaitConfirm = res[4].data;
+                let sizeOrderWaitRate = res[5].data;
+                let sizeOrderWaitRefund = res[6].data;
 
-            that.setData({
-                sizeFavorite: sizeFavorite,
-                sizeCart: sizeCart,
-                sizeOrderWaitPay: sizeOrderWaitPay,
-                sizeOrderWaitSend: sizeOrderWaitSend,
-                sizeOrderWaitConfirm: sizeOrderWaitConfirm,
-                sizeOrderWaitRate: sizeOrderWaitRate,
-                sizeOrderWaitRefund: sizeOrderWaitRefund,
-            });
-        }).catch(function (res) {
+                that.setData({
+                    sizeFavorite: sizeFavorite,
+                    sizeCart: sizeCart,
+                    sizeOrderWaitPay: sizeOrderWaitPay,
+                    sizeOrderWaitSend: sizeOrderWaitSend,
+                    sizeOrderWaitConfirm: sizeOrderWaitConfirm,
+                    sizeOrderWaitRate: sizeOrderWaitRate,
+                    sizeOrderWaitRefund: sizeOrderWaitRefund,
+                });
+            }).catch(function (res) {
 
         }).finally(function (res) {
             wx.hideLoading();

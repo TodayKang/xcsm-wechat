@@ -32,10 +32,66 @@ const statusProduct_ = {
     }
 };
 
+function requestGet(url) {
+    let promise = new Promise(function (resolve, reject) {
+        wx.request({
+            url: host + url,
+            method: 'GET',
+            header: {},
+            timeout: timeout,
+            success(res) {
+                if (res.data['status'] === true) {
+                    resolve(res.data);
+                } else {
+                    reject(res.data);
+                }
+            },
+            fail(res) {
+                reject(res.data);
+            },
+            complete(res) {
+
+            }
+        });
+    });
+
+    return promise;
+}
+
+function requestPost(url, data = {}) {
+    let promise = new Promise(function (resolve, reject) {
+        wx.request({
+            url: host + url,
+            data: data,
+            method: 'POST',
+            header: {},
+            timeout: timeout,
+            success(res) {
+                if (res.data['status'] === true) {
+                    resolve(res.data);
+                } else {
+                    reject(res.data);
+                }
+            },
+            fail(res) {
+                reject(res.data);
+            },
+            complete(res) {
+
+            }
+        });
+    });
+
+    return promise;
+}
+
 module.exports = {
     timeout,
     host,
     weekCn_,
     pageSize,
     statusProduct_,
+
+    requestGet,
+    requestPost,
 }

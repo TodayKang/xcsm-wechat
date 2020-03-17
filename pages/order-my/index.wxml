@@ -1,13 +1,13 @@
 <!--pages/my-order/index.wxml-->
-<import src="/template/template-abnor/template-abnor.wxml"/>
-<import src="/template/template-list-item/template-list-item.wxml"/>
+<import src="/template/template-abnor/template-abnor.wxml" />
+<import src="/template/template-list-item/template-list-item.wxml" />
 
 <van-sticky>
-    <van-search focus value="{{  }}" placeholder="请输入搜索关键词" bind:change="searchChange"/>
+    <van-search focus value="{{  }}" placeholder="请输入搜索关键词" bind:change="searchChange" />
 
     <van-tabs animated swipeable active="{{ activeTab }}" bind:change="tabOnChange">
         <block wx:for="{{ statusList }}" wx:key="key">
-            <van-tab info="" name="{{ item.statusEn }}" title="{{ item.statusZh }}"/>
+            <van-tab info="" name="{{ item.statusEn }}" title="{{ item.statusZh }}" />
         </block>
     </van-tabs>
 </van-sticky>
@@ -15,7 +15,7 @@
 <block wx:if="{{ loadReady }}">
 
     <block wx:if="{{ itemList == null || itemList.length < 1 }}">
-        <template is="ORDER"/>
+        <template is="ORDER" />
     </block>
     <block wx:else>
 
@@ -29,20 +29,20 @@
                                 <block wx:if="{{ item.dateStr != null }}">{{ item.dateStr }}</block>
                             </view>
                             <view class="global-center order-id">订单号:{{ item.orderId }}</view>
-                            <view class="global-center status">{{ item.statusText }}</view>
+                            <view class="global-center status">{{ item.statusZh }}</view>
                             <view class="global-center icon">
                                 <block wx:if="{{ item.showProductList_ }}">
-                                    <van-icon name="arrow-up" size="22px"/>
+                                    <van-icon name="arrow-up" size="22px" />
                                 </block>
                                 <block wx:else>
-                                    <van-icon name="arrow-down" size="22px"/>
+                                    <van-icon name="arrow-down" size="22px" />
                                 </block>
                             </view>
                         </view>
 
                         <block wx:if="{{ item.showProductList_ != null && item.showProductList_ }}">
                             <view class="item-detail" data-item="{{ item }}" bindtap="toOrderDetail">
-                                <template is="order-product-list" data="{{ productList: item.productList }}"/>
+                                <template is="order-product-list" data="{{ productList: item.productList }}" />
                             </view>
                         </block>
 
