@@ -1,4 +1,5 @@
 // pages/my/index.js
+import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
 
 let method = require('../../utils/method.js');
 let util = require('../../utils/util.js');
@@ -51,6 +52,10 @@ Page({
      */
     onPullDownRefresh: function () {
         let that = this;
+
+        that.setData({
+            customer: null,
+        });
         that.loadPage();
     },
 
@@ -78,17 +83,15 @@ Page({
         promise.then(res => {
             console.log('当前用户注册信息:' + JSON.stringify(res))
             //用户还未注册，故不能登录
-            if (res['customer'] == null) {
-                return;
+            if (util.CollectionUtils.isNotEmpty(res['data']['customer'])) {
+                that.setData({
+                    customer: res['data']['customer']
+                });
+
+                that.loadMyPageData();
             }
-
-            let customer = res['customer'];
-
-            that.setData({
-                customer: customer
-            });
-
-            that.loadMyPageData();
+        }).catch(res => {
+            // js code登录失败
         }).finally(res => {
             wx.hideLoading();
         });
@@ -120,26 +123,25 @@ Page({
             statusEn: 'waitRefund'
         });
 
-        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7])
-            .then(function (res) {
-                let sizeFavorite = res[0].data;
-                let sizeCart = res[1].data;
-                let sizeOrderWaitPay = res[2].data;
-                let sizeOrderWaitSend = res[3].data;
-                let sizeOrderWaitConfirm = res[4].data;
-                let sizeOrderWaitRate = res[5].data;
-                let sizeOrderWaitRefund = res[6].data;
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6, promise7]).then(function (res) {
+            let sizeFavorite = res[0].data;
+            let sizeCart = res[1].data;
+            let sizeOrderWaitPay = res[2].data;
+            let sizeOrderWaitSend = res[3].data;
+            let sizeOrderWaitConfirm = res[4].data;
+            let sizeOrderWaitRate = res[5].data;
+            let sizeOrderWaitRefund = res[6].data;
 
-                that.setData({
-                    sizeFavorite: sizeFavorite,
-                    sizeCart: sizeCart,
-                    sizeOrderWaitPay: sizeOrderWaitPay,
-                    sizeOrderWaitSend: sizeOrderWaitSend,
-                    sizeOrderWaitConfirm: sizeOrderWaitConfirm,
-                    sizeOrderWaitRate: sizeOrderWaitRate,
-                    sizeOrderWaitRefund: sizeOrderWaitRefund,
-                });
-            }).catch(function (res) {
+            that.setData({
+                sizeFavorite: sizeFavorite,
+                sizeCart: sizeCart,
+                sizeOrderWaitPay: sizeOrderWaitPay,
+                sizeOrderWaitSend: sizeOrderWaitSend,
+                sizeOrderWaitConfirm: sizeOrderWaitConfirm,
+                sizeOrderWaitRate: sizeOrderWaitRate,
+                sizeOrderWaitRefund: sizeOrderWaitRefund,
+            });
+        }).catch(function (res) {
 
         }).finally(function (res) {
             wx.hideLoading();
@@ -195,7 +197,7 @@ Page({
                 break;
         }
 
-        if (method.isStrBlank(url)) {
+        if (util.StringUtils.isBlank(url)) {
             return;
         }
 

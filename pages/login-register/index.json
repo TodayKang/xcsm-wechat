@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "用户信息授权",
+  "usingComponents": {
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
+  }
 }

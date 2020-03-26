@@ -2,15 +2,14 @@
 
 let config = require('../../utils/config.js');
 let method = require('../../utils/method.js');
+let util = require('../../utils/util.js');
 
 Page({
 
     /**
      * 页面的初始数据
      */
-    data: {
-
-    },
+    data: {},
 
     /**
      * 生命周期函数--监听页面加载
@@ -66,5 +65,33 @@ Page({
      */
     onShareAppMessage: function () {
 
-    }
+    },
+
+    getUserInfo: function (e) {
+        let wxUserInfo = e.detail.userInfo;
+        console.log(wxUserInfo);
+        if (util.ObjectUtils.isNull(wxUserInfo)) {
+            wx.showToast({
+                title: '操作成功',
+                icon: 'success',
+                mask: true,
+            });
+            return;
+        }
+
+        let promise1 = method.requestApi.login();
+
+
+        wx.getUserInfo({
+            lang: 'zh_CN',
+            success: function (res) {
+                console.log(wxUserInfo);
+            }
+        })
+
+        let data = null;
+        // let promise = config.requestPost('', data);
+
+    },
+
 })

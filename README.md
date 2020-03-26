@@ -15,5 +15,8 @@ npm install moment --save
 npm i @vant/weapp -S --production
 ```
 
+#### 3.本地环境启动
+brew services start redis
+
 
 

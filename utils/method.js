@@ -74,25 +74,16 @@ let requestApi = {
         });
 
         promise = promise.then(res => {
-            //失败
-            if (util.StringUtils.isBlank(res['code'])) {
-                return Promise.reject(res);
-            }
-
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
             return config.requestGet('/auth/login/' + res.code);
-        }).catch(res => {
-            //失败
-            return Promise.reject(res);
         });
 
         //服务端登录完成
         promise = promise.then(res => {
-            let customer = res['customer'];
-            wx.setStorageSync("customerInfo", customer);
+            wx.setStorageSync("customerInfo", res['data']['customer']);
             return Promise.resolve(res);
         }).catch(res => {
-            return Promise.resolve(res);
+            return Promise.reject(res);
         });
 
         return promise;

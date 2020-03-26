@@ -1,5 +1,6 @@
 <!--pages/login-register/index.wxml-->
 
-<view>
-
+<view class="global-center register">
+    <view class="item-rule">登录或注册后，您将享受到更优质的服务</view>
+    <button type="warn" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">登录/注册</button>
 </view>

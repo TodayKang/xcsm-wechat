@@ -1,8 +1,12 @@
 <!--pages/my/index.wxml-->
+<van-notify id="notify-network"/>
+
 <view class="general">
     <view class="global-center icon">
         <block wx:if="{{ customer!= null }}">
-            <van-image lazy-load round width="160rpx" height="160rpx" src="{{ customer.avatar }}"/>
+            <view class="avatar-wx">
+                <open-data type="userAvatarUrl"></open-data>
+            </view>
         </block>
         <block wx:else>
             <view class="avatar-wx">
@@ -11,12 +15,12 @@
         </block>
     </view>
     <view class="global-center name">
-        <block wx:if="{{ customer.nickName != null }}">
+        <block wx:if="{{ customer != null }}">
             <view class="nick">{{ customer.realName }}</view>
             <view class="nick-wx">{{ customer.nickName }}</view>
         </block>
         <block wx:else>
-            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录/注册</button>
+            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">注册</button>
         </block>
     </view>
     <view class="message">

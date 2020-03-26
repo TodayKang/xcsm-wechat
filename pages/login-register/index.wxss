@@ -1,1 +1,17 @@
 /* pages/login-register/index.wxss */
+
+.register {
+    width: 100%;
+    height: 100%;
+}
+
+.item-rule {
+    padding: 0 40rpx 40rpx 40rpx;
+    font-size: 32rpx;
+    text-align: center;
+}
+
+button[type='warn'] {
+    color: #fff;
+    background-color: #e64340;
+}
